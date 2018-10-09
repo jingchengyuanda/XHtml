@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+		<title></title>
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<style type="text/css">
+		.s1{
+			height: 35px;
+			color: white;
+			font: bold 15px/35px "宋体";
+		}
+		.s2{
+			height: 35px;
+			color: white;
+			font: bold 12px/35px "宋体";
+		}
+		.s2 span:nth-of-type(1){
+			color: #FFF21B;
+		}
+		.s2 p{
+			padding-right: 90px;
+		}
+		.exit{
+			color: white;
+			width: 35px;
+			height: 25px;
+			text-align: center;
+			background-color:#8DC839 ;
+			font: bold 12px/25px "宋体";
+			position: relative;
+			bottom: 43px;
+			left: 925px;
+			border-radius: 4px;
+		}
+		.d1,.d2{
+			height: 25px;
+			color: #81868A;
+			font: normal 11px/25px "宋体";
+		}
+		
+		 .g1{
+		 	width: 165px;
+		 	padding-left: 5px;
+		 }
+    .g1 li{
+    	color: #5442A9;
+    	text-align: center;
+    	background-color: #F5F5F5;
+    	font: bold 14px/20px "宋体";
+    }
+    .n1{
+    	width:1000px;
+    	height:72px;
+    	margin-bottom: -10px;
+    }
+    .g1 li:nth-of-type(1){
+     padding-left: 15px;
+     }
+     .g1 li:nth-of-type(1) a{
+         width: 130px;
+         height: 30px;
+        
+    		background-color:#5E9BDA ;
+     	  font: bold 13px/8px "宋体";
+    	  color: white;
+     	}
+    .o{
+    	display: inline-block;
+    	border: 2px solid #2476A9;
+    	border-radius:50% ;
+    	width: 6px;
+    	height:6px ;
+    	position: relative;
+    	
+    }
+    .c3{
+    		width:900px;
+    }
+    .c2 img{
+    	padding-left: 45px;
+    }
+    .f1 p{
+    	color: white;
+    	text-align: center;
+    }
+    .c1 h2{
+    	font-family: "宋体";
+    	color: #0A64BA;
+    }
+    .c1 p{
+    	font: normal 14px/30px "宋体";
+    }
+    .n2{
+    	width: 1100px;
+    	border: 1px solid #EAEDF7;
+    	font: normal 11px/20px "宋体";
+    	border-radius: 6px;
+    	margin-left: 10px;
+    }
+    .n2 span{
+    	font: bold 11px/20px "宋体";
+    	color: #2179B9;
+    }
+    .n3{
+    	width: 1100px;
+    	height: 40px;
+    	background-color:#F6FAFD;
+    	margin-left: -5px;
+    }
+    .n3 form{
+    	text-align: center;
+    }
+    .y1 td{
+    	padding-right:5px;
+    	position: relative;
+    	top: 5px;
+    }
+    .y2{
+    	padding-left:15px;
+    	position: relative;
+    	top: 5px;
+    }
+    #dg{
+    margin-left: 15px;
+    }
+	</style>
+</head>	
+
+<body class="easyui-layout">   
+    <div data-options="region:'north'" class="n1">
+    	 <div class="container" style="width: 100%;">
+  	    <div class="row" style="background-color: #5E9BDA;">
+  	 	    <div  class="col-md-3 text-left">
+  	 	      <div class="s1">
+    					<img src="images/buy.png" /><span>超市订单管理系统</span>
+    				</div>
+    	</div>
+    			<div  class="col-md-9 text-right">
+    				<div class="s2">
+    					<p>下午好！<span id="users"></span>，欢迎你！</p><div class="exit">退出</div>
+    				</div>
+    			</div>
+    		</div>
+    
+  	  	<div class="row" style="background-color: #E3ECF5">
+  	 	 		<div  class="col-md-4 text-left">
+  	 				<div class="d1">
+    					<img src="images/time.png" />&nbsp;<span>2018年08月12日&nbsp;09:02:17&nbsp;星期六</span>
+    				</div>
+    			</div>
+    			<div  class="col-md-8 text-right">
+    				<div class="d2">
+    				<p>温馨提示：为了能正常浏览，请使用高版本浏览器！（IE10+）</p>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+    </div>
+    
+    
+    <div data-options="region:'west'" style="width:180px;background-color: #F5F5F5;">
+   		<div>
+   			<ul class="list-group nav nav-divider g1">
+			        <li class="active" >
+			          	<a href="welcom.html" target="mainFram"><div class="o">&nbsp;</div>&nbsp;功能列表&nbsp;<div class="o">&nbsp;</div></a>   	
+			        </li>
+			        <hr />
+			        <li>
+			        	 <p><img src="images/zd.png" /><a href="order.html" class="aa" target="mainFram">订单管理</a></p>
+			        </li>
+			        <hr />
+			        <li >
+			        	 <p><img src="images/gys.png" /><a href="supplier.html" class="aa" target="mainFram">供应商管理</a>	</p>		        	
+			        </li>
+			        <hr />
+			        <li >
+			        	 <p><img src="images/yh.png" /><a href="user.html" class="aa" target="mainFram">用户管理</a></p>
+			        </li>
+			        <hr />
+			        <li>
+			        	<p><img src="images/mm.png" /><a href="user.html" class="aa" target="mainFram">密码修改</a></p>
+			        </li>
+			        <hr />
+			        <li >
+			        	<p><img src="images/tc.png" /><a href="login.html" class="aa" >退出系统</a></p>	        
+			        </li>
+			    </ul>
+   			
+   		</div>
+    </div>   
+    <div data-options="region:'center'" style="width:1000px;">
+       <iframe name="mainFram" width="1100px" height="450px" frameborder="0" scrolling="no" src="welcom.html" ></iframe>
+      
+    </div>
+ 
+     <div data-options="region:'south'" class="f1" style="height:100px;background-color: #4287C2;">
+    	        <p>版权归北大青鸟</p>
+    </div>  
+</body>
+</html>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //alert("1121");
+        $.post("getUserName",{},function (data){
+            var node = $("#users");
+            //alert(data);
+            node.append(data);
+        },'text')
+    })
+
+</script>

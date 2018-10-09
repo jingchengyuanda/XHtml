@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<style type="text/css">
+		.n2{
+			width: 1100px;
+			border: 1px solid #EAEDF7;
+			font: normal 11px/20px "宋体";
+			border-radius: 6px;
+			margin-left: 10px;
+		}
+		.n2 img{
+			padding-left: 20px;
+		}
+		.n2 span{
+			font: bold 11px/20px "宋体";
+			color: #2179B9;
+		}
+		.f1{
+			margin-top: 20px;
+			margin-left: 13px;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12 n2">
+			<img src="images/home.png"/>&nbsp;你现在所在的位置是：<span>供应商管理页面 >> 供应商添加页面</span>
+		</div>
+	</div>
+</div>
+<div class="f1" style="width:1100px;border: 1px solid #00EE00;">
+	<div style="padding:10px 60px 20px 60px">
+		<form id="ff" method="post">
+			<table cellpadding="5">
+				<tr>
+					<td>供应商编码:</td>
+					<td><input class="easyui-textbox" type="text" name="procode" data-options="required:true,missingMessage:'编码不能为空'"></input></td>
+				</tr>
+				<tr>
+					<td>供应商名称:</td>
+					<td><input class="easyui-textbox" type="text" name="proname" data-options="required:true,missingMessage:'名称不能为空'"></input></td>
+				</tr>
+				<tr>
+					<td>联系人:</td>
+					<td><input class="easyui-textbox" type="text" name="procontact" data-options="required:true,missingMessage:'联系人不能为空'"></input></td>
+				</tr>
+				<tr>
+					<td>联系电话:</td>
+					<td><input class="easyui-textbox" type="text" name="prophone" data-options="required:true,missingMessage:'联系电话不能为空'"></input></td>
+				</tr>
+				<tr>
+					<td>联系地址:</td>
+					<td><input class="easyui-textbox" type="text" name="proaddress" ></input></td>
+				</tr>
+				<tr>
+					<td>传真:</td>
+					<td><input class="easyui-textbox" type="text" name="profax" ></input></td>
+				</tr>
+				<tr>
+					<td>描述:</td>
+					<td><input class="easyui-textbox" type="text" name="prodesc" ></input></td>
+				</tr>
+			</table>
+		</form>
+		<div style="margin-left: 55px; padding:5px">
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton" onclick="returnfrom()">返回</a>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+    function submitForm(){
+        $('#ff').form('submit',{
+            url:'addProvider',
+            success:function(data){
+                //alert(data);
+                if(data){
+                    location.href='supplier.html'
+                }else{
+                    alert('添加失败！！！');
+                }
+            }
+        });
+    }
+    function returnfrom(){
+        location.href='supplier.html'
+    }
+</script>

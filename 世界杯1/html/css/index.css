@@ -1,0 +1,19 @@
+.body-cent {
+  max-width: 100%;
+  min-width: 100%;
+  border: 1px solid rgb(65, 174, 225);
+  height: 60%;
+  position: fixed;
+  overflow: scroll;
+  margin: 190px 0px 0px 0px;
+}
+
+.pd10{
+
+  padding: 10px;
+}
+
+.pd20{
+
+  padding: 20px;
+}

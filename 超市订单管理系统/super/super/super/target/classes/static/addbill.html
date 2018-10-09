@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<style type="text/css">
+		.n2{
+    	width: 900px;
+    	border: 1px solid #EAEDF7;
+    	font: normal 11px/20px "宋体";
+    	border-radius: 6px;
+    	margin-left: 10px;
+    }
+    .n2 img{
+    	padding-left: 20px;
+    }
+    .n2 span{
+    	font: bold 11px/20px "宋体";
+    	color: #2179B9;
+    }
+    .f1{
+    	margin-top: 20px;
+    	margin-left: 13px;
+    }
+	</style>
+	</head>
+	<body>
+		<div class="container">
+       	<div class="row">
+       		<div class="col-md-12 n2">
+       			 <img src="images/home.png"/>&nbsp;你现在所在的位置是：<span>订单管理页面 >> 订单添加页面</span>
+       		</div>
+       	</div>
+       </div>
+		<div class="f1" style="width:900px;border: 1px solid #00EE00;">
+		<div style="padding:10px 60px 20px 60px">
+	    <form id="ff" method="post">
+	    	<table cellpadding="5">
+	    		<tr>
+	    			<td>订单编码:</td>
+	    			<td><input class="easyui-textbox" type="text" name="billcode" data-options="required:true,missingMessage:'编码不能为空'"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>商品名称:</td>
+	    			<td><input class="easyui-textbox" type="text" name="productname" data-options="required:true,missingMessage:'商品名称不能为空'"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>商品单位:</td>
+	    			<td><input class="easyui-textbox" type="text" name="productunit" data-options="required:true,missingMessage:'商品单位不能为空'"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>商品数量:</td>
+	    			<td><input class="easyui-textbox" type="text" name="productcount" data-options="required:true,missingMessage:'数量不能为空'"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>总金额:</td>
+	    			<td><input class="easyui-textbox" type="text" name="totalprice" data-options="required:true,missingMessage:'金额不能为空'"></input></td>
+	    		</tr>
+	    		<tr>
+	    			<td>供应商:</td>
+	    			<td>
+	    				<select class="" name="proname">
+	    					<option value="">-请选择-</option>
+	    				</select>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>是否付款:</td>
+	    			<td><input type="radio" name="ispayment" value="1" checked="checked" data-options="required:true">未付款</input>
+	    				<input  type="radio" name="ispayment" value="2" data-options="required:true">已付款</input>
+	    			</td>
+	    		</tr>
+	    	</table>
+	    </form>
+	    <div style="margin-left: 55px; padding:5px">
+	    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+	    	<a href="javascript:void(0)" class="easyui-linkbutton" onclick="returnfrom()">返回</a>
+	    </div>
+	    </div>
+	</div>
+
+	</body>
+</html>
+<script type="text/javascript" src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script type="text/javascript">
+		function submitForm(){
+            $('#ff').form('submit',{
+                url:'addBill',
+                success:function(data){
+                    //alert(data);
+                    if(data){
+                        location.href='order.html'
+                    }else{
+                        alert('添加失败！！！');
+                    }
+                }
+            });
+		}
+		function returnfrom(){
+            location.href='order.html'
+		}
+
+        $(function(){
+            $.post('getProname',{},function (data){
+                //alert(data);
+                var snode =  $("[name='proname']");
+
+                if(data.length > 0){
+                    // 循环
+                    $.each(data,function(i,n){
+                        //alert(n.proname);
+                        var tnode = "<option value='"+n.proname+"'>"+n.proname+"</option>";
+                       // alert(snode);
+                        tnode = $(tnode);
+                        snode.append(tnode);
+                    });
+                }
+            } ,'JSON')
+        });
+</script>

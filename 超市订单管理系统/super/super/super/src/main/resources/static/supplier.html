@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport"
+	  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+		<title></title>
+	<link rel="stylesheet" href="css/bootstrap.css" />
+	<link rel="stylesheet" type="text/css" href="css/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="css/themes/icon.css">
+	<style type="text/css">
+
+	.n2{
+		width: 1000px;
+		width: 1000px;
+    	border: 1px solid #EAEDF7;
+    	font: normal 11px/20px "宋体";
+    	border-radius: 6px;
+    	margin-left: 10px;
+    }
+    .n2 span{
+    	font: bold 11px/20px "宋体";
+    	color: #2179B9;
+    }
+   .n3{
+   		width: 1000px;
+    	height: 40px;
+    	background-color:#F6FAFD;
+    	margin-left: -5px;
+    }
+    .n3 form{
+    	text-align: center;
+    }
+    .y1 td{
+    	padding-left:5px;
+    	position: relative;
+    	top: 5px;
+    }
+    .y2{
+    	padding-left:15px;
+    	position: relative;
+    	top: 5px;
+    }
+	</style>
+	</head>
+	<body>
+		<div class="container">
+       	<div class="row">
+       		<div class="col-md-12 n2">
+       			 <img src="images/home.png"/>&nbsp;你现在所在的位置是：<span>供应商管理页面</span>
+       		</div>
+       	</div>
+       	<div class="row n3" >
+       		<div class="col-md-7 ">
+       			<form id="ff" method="post">
+	    				<table cellpadding="5" class="y1">
+	    				<tr>
+	    				<td>商品编码:</td>
+	    				<td><input class="easyui-textbox" type="text" name="procode" ></input></td>
+	    				<td>供应商名称:</td>
+	    				<td><input class="easyui-textbox" type="text" name="proname" ></input></td>
+	    			  <td><a href="javascript:void(0)" class="easyui-linkbutton" id="query" ><img src="images/search.png">查询</a></td>
+	    				</tr>
+	    				</table>
+	    			</form>
+       		</div>
+       		<div class="col-md-5 text-right y2">
+       			 <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addform()"><img src="images/tianjia.png">添加供应商</a>
+       		</div>
+       	</div>
+       	<div class="row">
+       		<div style="height: 385px; width:1010px; padding-left: 10px;">
+				<table id="dg"></table>
+			</div>
+       	</div>
+       </div>
+	</body>
+</html>
+<script src="js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+<script src='js/bootstrap.min.js'></script>
+<script type="text/javascript">
+    function addform(){
+        var node = $(".container");
+        node.empty();
+        node.append("<iframe src='addsupplier.html' width='100%' frameborder='0' scrolling='no' id='test' onload='this.height=385'></iframe>")
+    }
+    $(function(){
+        $("#query").click(function () {
+            var code = ($("[name='procode']").val());
+            var pro = ($("[name='proname']").val());
+            $('#dg').datagrid('load', {
+                procode:code,
+                proname: pro
+            });
+        });
+    });
+ $('#dg').datagrid({
+        url:'allProvider',
+		fit:true,
+        fitColumns:false,
+        columns:[[
+            {field:'procode',title:'供应商编号',width:150,align:'center',sortable:true},
+            {field:'proname',title:'供应商名称',width:200,align:'center',editor:'text'},
+            {field:'procontact',title:'联系人',width:100,align:'center',editor:'text'},
+            {field:'prophone',title:'联系电话',width:150,align:'center',editor:'text'},
+            {field:'profax',title:'传真',width:100,align:'center',editor:'text'},
+            {field:'creationdate',title:'创建时间',width:100,align:'center',editor:'datetimebox',formatter:function(value,row,index){
+                var dt = new Date(value);
+                var ds = myformatter(dt);
+                row.joinTime = ds;
+                return ds;
+            }},
+            {field:'action',title:'操作',width:150,align:'center',
+					formatter:function(value,row,index){
+                		if(row.editing){
+                            var s = '<a href="javascript:void(0)" onclick="saverow('+index+')">Save</a> ';
+                            var c = '<a href="javascript:void(0)" onclick="cancelrow('+index+')">Cancel</a>';
+                            return s+c;
+						}else {
+                            var e = '<a href="javascript:void(0)" onclick="editr('+index+')"><img src="images/read.png"></a> ';
+                            var d = '<a href="javascript:void(0)" onclick="editrow('+index+')"><img src="images/xiugai.png"></a> ';
+                            var c = '<a href="javascript:void(0)" onclick="deleterow('+index+')"><img src="images/schu.png"></a>';
+                            return e+d+c;
+						}
+					}
+			}
+        ]],
+     onBeforeEdit:function(index,row){
+         row.editing = true;
+         //重新刷新行
+         $('#dg').datagrid('refreshRow', index);
+     },
+     onAfterEdit:function(index,row){
+         row.editing = false;
+         //alert(row.productid);
+         //alert(row);
+         var jstr = JSON.stringify(row);//对象转 json string
+         //alert(jstr);
+         var sobj = JSON.parse(jstr); //json string 转 对象
+         //alert(typeof(sobj.creationdate));
+         var dt = new Date(sobj.creationdate);//转 js 的时间
+         var ds = myformatter(dt);
+         sobj.creationdate = ds ;
+         alert(JSON.stringify(sobj));
+         $.post('updateProvider',sobj,function(data){
+             if(data == 'true'){
+                 alert(data);
+                 $('#dg').datagrid('refreshRow', index);
+             }
+         });
+         //重新刷新行
+         //$('#dg').datagrid('refreshRow', index);
+     },
+     onCancelEdit:function(index,row){
+         row.editing = false;
+         $('#dg').datagrid('refreshRow', index);
+     } ,
+        pagination:true,
+        pageSize:10,
+		pageList:[10,20,30]
+    });
+    function editrow(index){
+        alert(111);
+        $('#dg').datagrid('beginEdit', index);
+	}
+    function details(index) {
+        var rows = $('#dg').datagrid('getRows');
+        var id = rows[index].id;
+        alert(id);
+    }
+    $(function(){
+        //alert(0);
+        var pager = $('#dg').datagrid().datagrid('getPager');	// get the pager of datagrid
+        pager.pagination({
+            displayMsg:'显示第 {from} 到 {to} 条记录，共 {total} 条记录'
+        });
+    });
+    function myformatter(date){
+        var y = date.getFullYear();
+        var m = date.getMonth()+1;
+        var d = date.getDate();
+        return y+'-'+(m<10?('0'+m):m)+'-'+(d<10?('0'+d):d);
+    }
+
+    function saverow(index){
+        // 结束编辑
+        $('#dg').datagrid('endEdit', index);
+    }
+    function cancelrow(index){
+        $('#dg').datagrid('cancelEdit', index);
+    }
+    function deleterow(index){
+        var rows = $('#dg').datagrid('getRows');
+        $.messager.confirm('comfirm','你确定要删除【'+rows[index].procode+'】订单吗?',function (r) {
+            if(r){
+                // 得到所有行
+
+                //alert(rows.length);
+                // 根据下标拿当前行的数据
+                var did2 = rows[index].procode ;
+                //alert(did2);
+                // 发送ajax
+                $.post('delProvider',{procode:did2},function(data){
+                    //alert(data);
+                    if(data == 'true'){
+                        // 删除1行，发命令
+                        $('#dg').datagrid('deleteRow', index);
+                        $('#dg').datagrid.refreshRow();
+                    }
+                });
+            }
+        })
+    }
+</script>
